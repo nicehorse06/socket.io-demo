@@ -55,11 +55,16 @@
 	<script>
 		$(function () {
 			var socket = io();
+			// 當 from 提交表單時就會觸發submit事件
 			$('form').submit(function () {
+				// 發出chat message事件到server, $('#m').val()為input的值
 				socket.emit('chat message', $('#m').val());
+				// 清空input
 				$('#m').val('');
 				return false;
 			});
+
+			// 監聽chat message事件並顯示新增在HTML
 			socket.on('chat message', function (msg) {
 				$('#messages').append($('<li>').text(msg));
 			});
